@@ -1,0 +1,541 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stylophone</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --black-plastic: rgb(28, 24, 30);
+      }
+
+      html,
+      body {
+        height: 100%;
+        font-family: sans-serif;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+      }
+
+      .stylophone {
+        width: 500px;
+        height: 300px;
+        background-color: var(--black-plastic);
+        border-radius: 3px;
+        border: 4px solid var(--black-plastic);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+      }
+
+      .top {
+        height: 70%;
+        background-color: var(--black-plastic);
+        border: 3px solid var(--black-plastic);
+        box-shadow: -0.5px -0.5px 0.5px rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .grill {
+        text-align: right;
+        padding: 5% 2%;
+        height: 100%;
+        box-shadow: inset 0 1px 10px rgba(0, 0, 0, 0.5);
+        border: 1px solid var(--black-plastic);
+        border-radius: 3px;
+        background-image: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.2) 30%,
+            rgba(220, 220, 220, 1) 30%,
+            rgba(240, 250, 240, 1) 50%,
+            rgba(0, 0, 0, 1) 51%,
+            rgba(200, 205, 200, 1) 54%,
+            rgba(220, 225, 220, 1) 70%,
+            rgba(255, 255, 255, 1) 85%,
+            rgba(0, 0, 0, 0.2) 85%,
+            rgba(0, 0, 0, 0.2) 100%
+          ),
+          linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.5) 0%,
+            rgba(0, 0, 0, 0.5) 20%,
+            rgba(180, 200, 180, 1) 20%,
+            rgba(255, 255, 255, 1) 30%,
+            rgba(180, 180, 180, 1) 40%,
+            rgba(0, 0, 0, 0.7) 40%,
+            rgba(0, 0, 0, 0.7) 100%
+          );
+        background-size: 4.25% 5%;
+      }
+
+      .logo {
+        display: inline-block;
+        padding: 5px;
+        width: 50%;
+        height: 36%;
+        border-radius: 1px;
+        border: 2px solid black;
+        background-blend-mode: screen;
+        box-shadow: -0.5px -1px 2px 1px rgba(0, 0, 0, 0.5);
+        background: var(--black-plastic);
+        background-image: linear-gradient(
+            90deg,
+            rgba(1, 1, 3, 1) 0%,
+            rgba(26, 26, 28, 1) 35%,
+            rgba(13, 24, 27, 0.1) 100%
+          ),
+          url(data:image/png;base64,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);
+        background-size: 90%;
+        background-repeat: no-repeat;
+        background-position: center;
+        font-family: sans-serif;
+        font-style: italic;
+        font-size: 24px;
+        color: white;
+      }
+
+      .middle {
+        background-color: var(--black-plastic);
+        height: 15%;
+        width: 100%;
+        display: flex;
+      }
+
+      .panel {
+        background-color: var(--black-plastic);
+        box-shadow: -1px -1px 1px black, 0 0.5px rgba(255, 255, 255, 0.7);
+        border-radius: 2px;
+        flex: 1.5;
+        align-items: center;
+        height: 85%;
+        font-size: 8px;
+        padding: 1px;
+        color: var(--black-plastic);
+        text-shadow: 0.5px 0.5px rgba(255, 255, 255, 0.5),
+          -0.5px -0.5px rgba(20, 20, 20, 0.5);
+        margin: 2px 3px;
+        display: flex;
+      }
+
+      .panel:last-child {
+        flex: 9;
+        margin-right: 0;
+      }
+
+      .panel .hole {
+        flex: 1;
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        margin-left: 4px;
+        border-radius: 2px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        padding: 2px 10px;
+      }
+
+      .stylus {
+        width: 97%;
+        height: 90%;
+        background-color: var(--black-plastic);
+      }
+
+      .bottom {
+        height: 30%;
+        background: linear-gradient(
+          354deg,
+          rgba(224, 222, 222, 1) 0%,
+          rgba(230, 226, 226, 1) 35%,
+          rgba(255, 255, 255, 1) 100%
+        );
+        display: flex;
+        padding: 5px 20px;
+        border-radius: 2px;
+      }
+
+      .switches {
+        display: flex;
+        flex-direction: column;
+        color: white;
+        border-left: 5px solid rgb(30, 30, 30);
+        border-right: 5px solid rgb(30, 30, 30);
+        border-radius: 0.5px;
+      }
+
+      .switches > .label {
+        background-color: rgb(30, 30, 30);
+        text-align: center;
+        font-size: 8px;
+        padding: 5px;
+      }
+
+      .switch-row {
+        margin-left: -10px;
+        margin-right: -10px;
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .switch {
+        height: 30px;
+        width: 15px;
+        background-color: black;
+        position: relative;
+        border-radius: 0.5px;
+      }
+
+      .switch::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        height: 60%;
+        width: 100%;
+        border-radius: 0.5px;
+        background-color: rgb(70, 70, 70);
+        background-image: linear-gradient(
+          180deg,
+          rgba(50, 50, 50, 0.5) 0%,
+          rgba(50, 50, 50, 0.5) 30%,
+          rgba(20, 20, 20, 0.7) 50%,
+          rgba(20, 20, 20, 0.3) 70%,
+          rgba(50, 50, 50, 0.5) 100%
+        );
+        background-size: 100% 10%;
+        cursor: pointer;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+      }
+      .switch.off::before {
+        top: 0;
+      }
+      .switch.on::before {
+        bottom: 0;
+      }
+      .switch::after {
+        position: absolute;
+        right: -10px;
+        top: -25%;
+        height: 150%;
+        text-align: center;
+        color: black;
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        letter-spacing: 1.2;
+        font-size: 5px;
+        font-weight: bold;
+      }
+      .switch:nth-child(1)::after {
+        content: "POWER";
+      }
+      .switch:nth-child(2)::after {
+        content: "VIBRATO";
+      }
+
+      .keys {
+        flex: 1;
+        margin: 5px;
+        margin-left: 20px;
+        position: relative;
+        clip-path: polygon(8% 0%, 92% 0%, 100% 50%, 100% 100%, 0% 100%, 0% 50%);
+      }
+
+      .keys::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        box-shadow: inset -1px -2px 1px 0px rgb(0, 0, 0),
+          inset 0.5px -2px 1.5px 1px rgb(0, 0, 0);
+        pointer-events: none;
+        mix-blend-mode: overlay;
+        background-image: url(subtle-grunge.png),
+          linear-gradient(
+            90deg,
+            rgba(225, 223, 242, 0.3) 0%,
+            rgba(231, 231, 235, 0.4) 35%,
+            rgba(201, 237, 245, 0.5) 100%
+          );
+      }
+
+      .naturals {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        height: 100%;
+      }
+
+      .sharps {
+        position: absolute;
+        top: 0;
+        height: 50%;
+        width: 100%;
+        display: grid;
+        pointer-events: all;
+        grid-template-columns:
+          0.5fr repeat(1, 1fr) 1fr repeat(2, 1fr) 1fr repeat(3, 1fr)
+          1fr repeat(2, 1fr) 0.5fr;
+      }
+
+      .key {
+        background-color: rgb(147, 153, 139);
+        border: 1px solid black;
+        border-top: none;
+      }
+
+      .naturals .key {
+        border-bottom: none;
+      }
+
+      .naturals .key:first-child {
+        border-left: none;
+      }
+
+      .naturals .key:last-child {
+        border-right: none;
+      }
+
+      .sharps .key {
+        background-color: black;
+        clip-path: polygon(
+          0% 0%,
+          100% 0%,
+          100% 75%,
+          75% 100%,
+          25% 100%,
+          0% 75%
+        );
+        position: relative;
+      }
+
+      .sharps .key > div {
+        background-color: rgb(147, 153, 139);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 5px 1px;
+        clip-path: inherit;
+      }
+
+      .naturals > * + * {
+        border-left: none;
+      }
+
+      .sharps > * + * {
+        border-left: none;
+      }
+
+      .sharps .key:nth-child(1) {
+        grid-column: 2;
+        border-left: 1px solid black;
+      }
+      .sharps .key:nth-child(2) {
+        grid-column: 4;
+        border-left: 1px solid black;
+      }
+      .sharps .key:nth-child(4) {
+        grid-column: 7;
+        border-left: 1px solid black;
+      }
+      .sharps .key:nth-child(7) {
+        grid-column: 11;
+        border-left: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stylophone">
+      <div class="top">
+        <div class="grill">
+          <div class="logo"></div>
+        </div>
+        <div class="middle">
+          <div class="panel"></div>
+          <div class="panel">
+            STYLUS ▶
+            <div class="hole">
+              <div class="stylus"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="switches">
+          <div class="label">OFF</div>
+          <div class="switch-row">
+            <div class="power switch on"></div>
+            <div class="vibrato switch off"></div>
+          </div>
+          <div class="label">ON</div>
+        </div>
+        <div class="keys">
+          <div class="naturals">
+            <div class="key" data-note="A2"></div>
+            <div class="key" data-note="B2"></div>
+            <div class="key" data-note="C3"></div>
+            <div class="key" data-note="D3"></div>
+            <div class="key" data-note="E3"></div>
+            <div class="key" data-note="F3"></div>
+            <div class="key" data-note="G3"></div>
+            <div class="key" data-note="A3"></div>
+            <div class="key" data-note="B3"></div>
+            <div class="key" data-note="C4"></div>
+            <div class="key" data-note="D4"></div>
+            <div class="key" data-note="E4"></div>
+          </div>
+          <div class="sharps">
+            <div class="key" data-note="A#2"><div></div></div>
+            <div class="key" data-note="C#3"><div></div></div>
+            <div class="key" data-note="D#3"><div></div></div>
+            <div class="key" data-note="F#3"><div></div></div>
+            <div class="key" data-note="G#3"><div></div></div>
+            <div class="key" data-note="A#3"><div></div></div>
+            <div class="key" data-note="C#4"><div></div></div>
+            <div class="key" data-note="D#4"><div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const FREQUENCY_MAP = {
+        A2: 108.0,
+        "A#2": 114.42,
+        B2: 121.23,
+        C3: 128.43,
+        "C#3": 136.07,
+        D3: 144.16,
+        "D#3": 152.74,
+        E3: 161.82,
+        F3: 171.44,
+        "F#3": 181.63,
+        G3: 192.43,
+        "G#3": 203.88,
+        A3: 216.0,
+        "A#3": 228.84,
+        B3: 242.45,
+        C4: 256.87,
+        "C#4": 272.14,
+        D4: 288.33,
+        "D#4": 305.47,
+        E4: 323.63,
+      };
+
+      let currentOscillator;
+      let switches = {
+        power: true,
+        vibrato: false,
+      };
+      document.querySelectorAll(".key").forEach((key) => {
+        key.addEventListener("mousedown", () => {
+          if (!switches.power) {
+            // The device is off
+            return;
+          }
+
+          const context = new AudioContext();
+          const oscillator = context.createOscillator();
+          const gainNode = context.createGain();
+
+          if (currentOscillator) {
+            currentOscillator.disconnect();
+          }
+
+          oscillator.type = "square";
+          oscillator.frequency.value = FREQUENCY_MAP[key.dataset.note];
+          oscillator.connect(context.destination);
+          gainNode.gain.value = 0.3;
+
+          oscillator.connect(gainNode);
+          gainNode.connect(context.destination);
+
+          currentOscillator = oscillator;
+
+          oscillator.start();
+        });
+        key.addEventListener("mouseenter", (e) => {
+          if (!switches.power) {
+            // The device is off
+            return;
+          }
+
+          if (!currentOscillator) {
+            return;
+          }
+
+          const context = new AudioContext();
+          const oscillator = context.createOscillator();
+          const gainNode = context.createGain();
+
+          if (currentOscillator) {
+            currentOscillator.disconnect();
+          }
+
+          oscillator.type = "square";
+          oscillator.frequency.value = FREQUENCY_MAP[key.dataset.note];
+          oscillator.connect(context.destination);
+          gainNode.gain.value = 0.3;
+
+          oscillator.connect(gainNode);
+          gainNode.connect(context.destination);
+
+          currentOscillator = oscillator;
+
+          oscillator.start();
+        });
+      });
+      document.querySelector(".keys").addEventListener("mouseleave", () => {
+        if (currentOscillator) {
+          currentOscillator.stop();
+          currentOscillator.disconnect();
+          currentOscillator = null;
+        }
+      });
+      document.querySelector(".keys").addEventListener("mouseup", () => {
+        if (currentOscillator) {
+          currentOscillator.stop();
+          currentOscillator.disconnect();
+          currentOscillator = null;
+        }
+      });
+
+      document.querySelectorAll(".switch").forEach((el) => {
+        el.addEventListener("click", () => {
+          if (el.classList.contains("on")) {
+            el.classList.remove("on");
+            el.classList.add("off");
+
+            // We've turned it off
+            if (el.classList.contains("power")) {
+              switches.power = false;
+            }
+            if (el.classList.contains("vibrato")) {
+              switches.vibrato = false;
+            }
+          } else {
+            el.classList.remove("off");
+            el.classList.add("on");
+
+            // We've turned it on
+            if (el.classList.contains("power")) {
+              switches.power = true;
+            }
+            if (el.classList.contains("vibrato")) {
+              switches.vibrato = true;
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
