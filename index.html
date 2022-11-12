@@ -36,15 +36,17 @@
         width: 50vw;
         height: 30vw;
         background-color: var(--black-plastic);
-        border-radius: 5px;
-        border: 4px solid var(--black-plastic);
+        border-radius: 10px;
+        border: 7px solid var(--black-plastic);
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+        font-size: 3vw;
       }
 
       @media only screen and (max-width: 1000px) {
         .stylophone {
           width: 500px;
           height: 300px;
+          font-size: 30px;
         }
       }
 
@@ -52,6 +54,7 @@
         .stylophone {
           width: 100vw;
           height: 60vw;
+          font-size: 6vw;
         }
       }
 
@@ -60,7 +63,7 @@
         background-color: var(--black-plastic);
         border: 3px solid var(--black-plastic);
         box-shadow: -0.5px -0.5px 0.5px rgba(255, 255, 255, 0.3);
-        border-radius: 3px;
+        border-radius: 6px;
         display: flex;
         flex-direction: column;
       }
@@ -118,10 +121,6 @@
         background-size: 90%;
         background-repeat: no-repeat;
         background-position: center;
-        font-family: sans-serif;
-        font-style: italic;
-        font-size: 24px;
-        color: white;
       }
 
       .middle {
@@ -155,6 +154,8 @@
       .panel span {
         margin-top: -2.5px;
         margin-left: 2px;
+        font-size: 250%;
+        vertical-align: middle;
       }
 
       .panel span span {
@@ -169,8 +170,8 @@
         height: 100%;
         margin-left: 4px;
         border-radius: 2px;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
+        border-top-left-radius: 30em;
+        border-bottom-left-radius: 30em;
         padding: 2px 10px;
       }
 
@@ -202,14 +203,14 @@
         );
         display: flex;
         padding: 0 15px;
-        border-radius: 2px;
+        border-radius: 4px;
       }
 
       .switches {
         display: flex;
         flex-direction: column;
         color: white;
-        margin: 1.5% 0;
+        margin: 1.5% 2%;
         width: 7%;
         border-left: 5px solid rgb(30, 30, 30);
         border-right: 5px solid rgb(30, 30, 30);
@@ -219,7 +220,7 @@
       .switches > .label {
         background-color: rgb(30, 30, 30);
         text-align: center;
-        font-size: 50%;
+        font-size: 28%;
         padding: 15%;
       }
 
@@ -268,15 +269,15 @@
       }
       .switch::after {
         position: absolute;
-        right: -56%;
+        right: -52%;
         top: -25%;
         height: 150%;
         text-align: center;
         color: black;
         writing-mode: vertical-rl;
         text-orientation: upright;
-        letter-spacing: 1.2;
-        font-size: 25%;
+        letter-spacing: 0.3em;
+        font-size: 12%;
         font-weight: bold;
       }
       .switch:nth-child(1)::after {
@@ -296,7 +297,7 @@
       .sharp-labels {
         display: grid;
         grid-template-columns: 0.5fr 1fr 1fr 2fr 1fr 3fr 1fr 2fr 0.5fr;
-        font-size: 7px;
+        font-size: 25%;
         justify-content: space-around;
         text-align: center;
         margin-top: -1px;
@@ -317,7 +318,7 @@
 
       .natural-labels {
         display: flex;
-        font-size: 7px;
+        font-size: 25%;
         justify-content: space-around;
         margin-top: -1px;
       }
@@ -340,8 +341,8 @@
         left: 0;
         width: 100%;
         height: 100%;
-        box-shadow: inset -1px -2px 1px 0px rgb(0, 0, 0),
-          inset 0.5px -2px 1.5px 1px rgb(0, 0, 0);
+        box-shadow: inset -0.07em -0.1em 0.1em 0px rgb(0, 0, 0),
+          inset 0.03em -0.1em 0.1em 0 rgb(0, 0, 0);
         pointer-events: none;
         mix-blend-mode: overlay;
         background-image: url(subtle-grunge.png),
@@ -369,6 +370,7 @@
         grid-template-columns:
           0.5fr repeat(1, 1fr) 1fr repeat(2, 1fr) 1fr repeat(3, 1fr)
           1fr repeat(2, 1fr) 0.5fr;
+        pointer-events: none;
       }
 
       .key {
@@ -400,6 +402,7 @@
           0% 75%
         );
         position: relative;
+        pointer-events: all;
       }
 
       .sharps .key > div {
