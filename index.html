@@ -34,6 +34,18 @@
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
       }
 
+      @media only screen and (max-width: 1000px) {
+        .stylophone {
+          transform: scale(1);
+        }
+      }
+
+      @media only screen and (max-width: 500px) {
+        .stylophone {
+          transform: scale(0.75);
+        }
+      }
+
       .top {
         height: 70%;
         background-color: var(--black-plastic);
@@ -169,8 +181,8 @@
       .bottom {
         height: 30%;
         background: linear-gradient(
-          354deg,
-          rgba(224, 222, 222, 1) 0%,
+          188deg,
+          rgba(204, 202, 202, 1) 0%,
           rgba(230, 226, 226, 1) 35%,
           rgba(255, 255, 255, 1) 100%
         );
@@ -522,76 +534,69 @@
       };
 
       let currentOscillator;
+
       let switches = {
         power: true,
         vibrato: false,
       };
-      document.querySelectorAll(".key").forEach((key) => {
-        key.addEventListener("mousedown", () => {
-          if (!switches.power) {
-            // The device is off
-            return;
-          }
 
-          const context = new AudioContext();
-          const oscillator = context.createOscillator();
-          const gainNode = context.createGain();
+      const playTone = (note) => {
+        if (!switches.power) {
+          // The device is off
+          return;
+        }
 
-          if (currentOscillator) {
-            currentOscillator.disconnect();
-          }
+        const context = new AudioContext();
+        const squareOscillator = context.createOscillator();
+        const vibratoOscillator = context.createOscillator();
+        const gainNode = context.createGain();
 
-          oscillator.type = "square";
-          oscillator.frequency.value = FREQUENCY_MAP[key.dataset.note];
-          oscillator.connect(context.destination);
+        if (currentOscillator) {
+          currentOscillator.disconnect();
+        }
+
+        squareOscillator.type = "square";
+        squareOscillator.frequency.value = FREQUENCY_MAP[note];
+        squareOscillator.connect(context.destination);
+
+        vibratoOscillator.type = "sine";
+        vibratoOscillator.frequency.value = 10;
+        vibratoOscillator.connect(context.destination);
+
+        if (switches.vibrato) {
+          gainNode.gain.value = 100.0;
+          vibratoOscillator.connect(gainNode);
+          gainNode.connect(squareOscillator.detune);
+          currentOscillator = vibratoOscillator;
+        } else {
           gainNode.gain.value = 0.3;
-
-          oscillator.connect(gainNode);
+          squareOscillator.connect(gainNode);
           gainNode.connect(context.destination);
+          currentOscillator = squareOscillator;
+        }
 
-          currentOscillator = oscillator;
+        currentOscillator.start();
+      };
 
-          oscillator.start();
+      document.querySelectorAll(".key").forEach((key) => {
+        key.addEventListener("pointerdown", () => {
+          playTone(key.dataset.note);
         });
-        key.addEventListener("mouseenter", (e) => {
-          if (!switches.power) {
-            // The device is off
-            return;
-          }
-
+        key.addEventListener("pointerenter", (e) => {
           if (!currentOscillator) {
             return;
           }
-
-          const context = new AudioContext();
-          const oscillator = context.createOscillator();
-          const gainNode = context.createGain();
-
-          if (currentOscillator) {
-            currentOscillator.disconnect();
-          }
-
-          oscillator.type = "square";
-          oscillator.frequency.value = FREQUENCY_MAP[key.dataset.note];
-          oscillator.connect(context.destination);
-          gainNode.gain.value = 0.3;
-
-          oscillator.connect(gainNode);
-          gainNode.connect(context.destination);
-
-          currentOscillator = oscillator;
-
-          oscillator.start();
+          playTone(key.dataset.note);
         });
       });
-      document.querySelector(".keys").addEventListener("mouseleave", () => {
+      document.querySelector(".keys").addEventListener("pointerleave", () => {
         if (currentOscillator) {
           currentOscillator.stop();
           currentOscillator.disconnect();
           currentOscillator = null;
         }
       });
-      document.querySelector(".keys").addEventListener("mouseup", () => {
+      document.querySelector(".keys").addEventListener("pointerup", () => {
         if (currentOscillator) {
           currentOscillator.stop();
           currentOscillator.disconnect();
