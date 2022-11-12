@@ -16,7 +16,7 @@
       html,
       body {
         height: 100%;
-        font-family: sans-serif;
+        font-family: tahoma, sans-serif;
       }
 
       body {
@@ -25,6 +25,7 @@
       }
 
       .stylophone {
+        transform: scale(1.5);
         width: 500px;
         height: 300px;
         background-color: var(--black-plastic);
@@ -111,7 +112,7 @@
 
       .panel {
         background-color: var(--black-plastic);
-        box-shadow: -1px -1px 1px black, 0 0.5px rgba(255, 255, 255, 0.7);
+        box-shadow: -1px -1px 1px black, 0 0.5px 0.5px rgba(255, 255, 255, 0.7);
         border-radius: 2px;
         flex: 1.5;
         align-items: center;
@@ -119,8 +120,8 @@
         font-size: 8px;
         padding: 1px;
         color: var(--black-plastic);
-        text-shadow: 0.5px 0.5px rgba(255, 255, 255, 0.5),
-          -0.5px -0.5px rgba(20, 20, 20, 0.5);
+        text-shadow: 0.25px 0.25px 0.25px rgba(255, 255, 255, 0.3),
+          -0.25px -0.25px 0.25px rgba(20, 20, 20, 0.3);
         margin: 2px 3px;
         display: flex;
       }
@@ -128,6 +129,11 @@
       .panel:last-child {
         flex: 9;
         margin-right: 0;
+      }
+
+      .panel span {
+        margin-top: -2.5px;
+        margin-left: 2px;
       }
 
       .panel .hole {
@@ -146,6 +152,18 @@
         width: 97%;
         height: 90%;
         background-color: var(--black-plastic);
+        position: relative;
+        display: none;
+      }
+
+      .stylus::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5%;
+        height: 100%;
+        background-color: gold;
       }
 
       .bottom {
@@ -157,7 +175,7 @@
           rgba(255, 255, 255, 1) 100%
         );
         display: flex;
-        padding: 5px 20px;
+        padding: 0 15px;
         border-radius: 2px;
       }
 
@@ -165,6 +183,7 @@
         display: flex;
         flex-direction: column;
         color: white;
+        margin: 4px 0;
         border-left: 5px solid rgb(30, 30, 30);
         border-right: 5px solid rgb(30, 30, 30);
         border-radius: 0.5px;
@@ -240,10 +259,49 @@
         content: "VIBRATO";
       }
 
+      .key-container {
+        flex: 1;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .sharp-labels {
+        display: grid;
+        grid-template-columns: 0.5fr 1fr 1fr 2fr 1fr 3fr 1fr 2fr 0.5fr;
+        font-size: 7px;
+        justify-content: space-around;
+        text-align: center;
+        margin-top: -1px;
+      }
+
+      .sharp-labels div:nth-child(1) {
+        grid-column: 2;
+      }
+      .sharp-labels div:nth-child(2) {
+        grid-column: 4;
+      }
+      .sharp-labels div:nth-child(3) {
+        grid-column: 6;
+      }
+      .sharp-labels div:nth-child(4) {
+        grid-column: 8;
+      }
+
+      .natural-labels {
+        display: flex;
+        font-size: 7px;
+        justify-content: space-around;
+        margin-top: -1px;
+      }
+
+      .label-group {
+        display: flex;
+        justify-content: space-around;
+      }
+
       .keys {
         flex: 1;
-        margin: 5px;
-        margin-left: 20px;
         position: relative;
         clip-path: polygon(8% 0%, 92% 0%, 100% 50%, 100% 100%, 0% 100%, 0% 50%);
       }
@@ -363,7 +421,7 @@
         <div class="middle">
           <div class="panel"></div>
           <div class="panel">
-            STYLUS ▶
+            <span>STYLUS ⏵</span>
             <div class="hole">
               <div class="stylus"></div>
             </div>
@@ -379,30 +437,62 @@
           </div>
           <div class="label">ON</div>
         </div>
-        <div class="keys">
-          <div class="naturals">
-            <div class="key" data-note="A2"></div>
-            <div class="key" data-note="B2"></div>
-            <div class="key" data-note="C3"></div>
-            <div class="key" data-note="D3"></div>
-            <div class="key" data-note="E3"></div>
-            <div class="key" data-note="F3"></div>
-            <div class="key" data-note="G3"></div>
-            <div class="key" data-note="A3"></div>
-            <div class="key" data-note="B3"></div>
-            <div class="key" data-note="C4"></div>
-            <div class="key" data-note="D4"></div>
-            <div class="key" data-note="E4"></div>
+        <div class="key-container">
+          <div class="sharp-labels">
+            <div>1.5</div>
+            <div class="label-group">
+              <div>3.5</div>
+              <div>4.5</div>
+            </div>
+            <div class="label-group">
+              <div>6.5</div>
+              <div>7.5</div>
+              <div>8.5</div>
+            </div>
+            <div class="label-group">
+              <div>10.5</div>
+              <div>11.5</div>
+            </div>
           </div>
-          <div class="sharps">
-            <div class="key" data-note="A#2"><div></div></div>
-            <div class="key" data-note="C#3"><div></div></div>
-            <div class="key" data-note="D#3"><div></div></div>
-            <div class="key" data-note="F#3"><div></div></div>
-            <div class="key" data-note="G#3"><div></div></div>
-            <div class="key" data-note="A#3"><div></div></div>
-            <div class="key" data-note="C#4"><div></div></div>
-            <div class="key" data-note="D#4"><div></div></div>
+          <div class="keys">
+            <div class="naturals">
+              <div class="key" data-note="A2"></div>
+              <div class="key" data-note="B2"></div>
+              <div class="key" data-note="C3"></div>
+              <div class="key" data-note="D3"></div>
+              <div class="key" data-note="E3"></div>
+              <div class="key" data-note="F3"></div>
+              <div class="key" data-note="G3"></div>
+              <div class="key" data-note="A3"></div>
+              <div class="key" data-note="B3"></div>
+              <div class="key" data-note="C4"></div>
+              <div class="key" data-note="D4"></div>
+              <div class="key" data-note="E4"></div>
+            </div>
+            <div class="sharps">
+              <div class="key" data-note="A#2"><div></div></div>
+              <div class="key" data-note="C#3"><div></div></div>
+              <div class="key" data-note="D#3"><div></div></div>
+              <div class="key" data-note="F#3"><div></div></div>
+              <div class="key" data-note="G#3"><div></div></div>
+              <div class="key" data-note="A#3"><div></div></div>
+              <div class="key" data-note="C#4"><div></div></div>
+              <div class="key" data-note="D#4"><div></div></div>
+            </div>
+          </div>
+          <div class="natural-labels">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+            <div>11</div>
+            <div>12</div>
           </div>
         </div>
       </div>

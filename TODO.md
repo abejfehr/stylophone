@@ -1,5 +1,6 @@
 stylophone
 
-- add stylus
-- add labels above/below keys
-- make switches functional
+~ add stylus
+
+- make vibrato switch work
+- make it smaller on mobile
