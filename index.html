@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -543,6 +544,7 @@
       };
 
       let currentOscillator;
+      let vibratoOscillator;
 
       let switches = {
         power: true,
@@ -557,8 +559,7 @@
 
         const context = new AudioContext();
         const squareOscillator = context.createOscillator();
-        const vibratoOscillator = context.createOscillator();
-        const gainNode = context.createGain();
+        const gain = context.createGain();
 
         if (currentOscillator) {
           currentOscillator.disconnect();
@@ -568,19 +569,33 @@
         squareOscillator.frequency.value = FREQUENCY_MAP[note];
         squareOscillator.connect(context.destination);
 
-        vibratoOscillator.type = "sine";
-        vibratoOscillator.frequency.value = 10;
-        vibratoOscillator.connect(context.destination);
-
         if (switches.vibrato) {
-          gainNode.gain.value = 100.0;
-          vibratoOscillator.connect(gainNode);
-          gainNode.connect(squareOscillator.detune);
-          currentOscillator = vibratoOscillator;
+          gain.gain.value = 0.3;
+          squareOscillator.connect(gain);
+          gain.connect(context.destination);
+
+          if (vibratoOscillator) {
+            vibratoOscillator.disconnect();
+          }
+          vibratoOscillator = context.createOscillator();
+          vibratoOscillator.frequency.value = 10;
+
+          const vibratoGain = context.createGain();
+          vibratoGain.gain.value = 3;
+          vibratoOscillator.connect(vibratoGain);
+          vibratoGain.connect(squareOscillator.frequency);
+          vibratoOscillator.start();
+
+          currentOscillator = squareOscillator;
         } else {
-          gainNode.gain.value = 0.3;
-          squareOscillator.connect(gainNode);
-          gainNode.connect(context.destination);
+          if (vibratoOscillator) {
+            vibratoOscillator.stop();
+            vibratoOscillator.disconnect();
+          }
+
+          gain.gain.value = 0.3;
+          squareOscillator.connect(gain);
+          gain.connect(context.destination);
           currentOscillator = squareOscillator;
         }
 
