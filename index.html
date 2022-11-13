@@ -38,7 +38,7 @@
         background-color: var(--black-plastic);
         border-radius: 10px;
         border: 7px solid var(--black-plastic);
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+        box-shadow: 0px 0px 1em rgba(0, 0, 0, 0.7);
         font-size: 3vw;
       }
 
@@ -154,7 +154,7 @@
       .panel span {
         margin-top: -2.5px;
         margin-left: 2px;
-        font-size: 250%;
+        font-size: 200%;
         vertical-align: middle;
       }
 
@@ -172,15 +172,42 @@
         border-radius: 2px;
         border-top-left-radius: 30em;
         border-bottom-left-radius: 30em;
-        padding: 2px 10px;
+        padding: 2px 6px;
+        padding-left: 0;
       }
 
       .stylus {
-        width: 97%;
+        cursor: not-allowed;
+        margin-left: 1%;
+        width: 99%;
         height: 90%;
-        background-color: var(--black-plastic);
         position: relative;
-        display: none;
+      }
+
+      .stylus::after {
+        content: "";
+        position: absolute;
+        top: 17%;
+        left: 0;
+        width: 4%;
+        height: 65%;
+        border-top-left-radius: 4em 1.5em;
+        border-bottom-left-radius: 4em 1.5em;
+        background: linear-gradient(
+            180deg,
+            rgba(254, 255, 232, 0.8) 0%,
+            rgba(194, 183, 116, 0.8) 16%,
+            rgba(107, 95, 24, 0.8) 29%,
+            rgba(198, 178, 47, 0.8) 43%,
+            rgba(255, 255, 255, 0.8) 100%
+          ),
+          linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0) 50%,
+            rgba(0, 0, 0, 0) 100%
+          );
+        box-shadow: inset 0 0.5px 3px rgba(0, 0, 0, 0.8);
       }
 
       .stylus::before {
@@ -188,9 +215,27 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 5%;
+        width: 95%;
         height: 100%;
-        background-color: gold;
+        border-top-left-radius: 20em 3em;
+        border-bottom-left-radius: 20em 3em;
+        border-top-right-radius: 1em;
+        border-bottom-right-radius: 1em;
+        background-color: var(--black-plastic);
+        background: linear-gradient(
+            170deg,
+            rgba(255, 255, 255, 0.7) 0%,
+            rgba(0, 0, 0, 0) 11%,
+            rgba(0, 0, 0, 0) 100%
+          ),
+          linear-gradient(
+            6deg,
+            rgba(255, 255, 255, 0.6) 0%,
+            rgba(0, 0, 0, 0) 13%,
+            rgba(0, 0, 0, 0) 100%
+          );
+        box-shadow: inset 0 0.5px 2px rgba(255, 255, 255, 0.4),
+          inset -1px 0 3px rgba(0, 0, 0, 0.7);
       }
 
       .bottom {
@@ -456,7 +501,7 @@
           <div class="panel">
             <span>STYLUS <span>►</span></span>
             <div class="hole">
-              <div class="stylus"></div>
+              <div class="stylus" title="Use your pointer as the stylus"></div>
             </div>
           </div>
         </div>

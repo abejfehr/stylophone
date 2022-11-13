@@ -1,7 +1,6 @@
 stylophone
 
 - add screened gradient to the grill
-- add stylus
 
 nice to haves
 
