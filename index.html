@@ -160,7 +160,7 @@
 
       .panel span span {
         display: inline-block;
-        transform: scale(1.2, 0.9);
+        transform: scale(1, 0.6);
       }
 
       .panel .hole {
@@ -301,6 +301,7 @@
         justify-content: space-around;
         text-align: center;
         margin-top: -1px;
+        padding: 0 1em;
       }
 
       .sharp-labels div:nth-child(1) {
@@ -332,6 +333,8 @@
         flex: 1;
         position: relative;
         clip-path: polygon(8% 0%, 92% 0%, 100% 50%, 100% 100%, 0% 100%, 0% 50%);
+        -webkit-touch-callout: none;
+        touch-action: manipulation;
       }
 
       .keys::after {
@@ -527,6 +530,7 @@
         </div>
       </div>
     </div>
+    <!-- <button>testing</button> -->
     <script>
       const FREQUENCY_MAP = {
         A2: 108.0,
@@ -553,6 +557,7 @@
 
       let currentOscillator;
       let vibratoOscillator;
+      let currentNote;
 
       let switches = {
         power: true,
@@ -610,30 +615,48 @@
         currentOscillator.start();
       };
 
+      const stopTone = () => {
+        if (currentOscillator) {
+          currentOscillator.stop();
+          currentOscillator.disconnect();
+          currentOscillator = null;
+        }
+      };
+
       document.querySelectorAll(".key").forEach((key) => {
         key.addEventListener("pointerdown", () => {
           playTone(key.dataset.note);
         });
-        key.addEventListener("pointerenter", (e) => {
+        key.addEventListener("mouseenter", (e) => {
           if (!currentOscillator) {
             return;
           }
           playTone(key.dataset.note);
         });
+        key.addEventListener("touchstart", () => {
+          playTone(key.dataset.note);
+        });
+        key.addEventListener("touchmove", (e) => {
+          if (!currentOscillator) {
+            return;
+          }
+          const touch = e.touches[0];
+          const touchedKey = document.elementFromPoint(
+            touch.screenX,
+            touch.screenY
+          );
+          if (touchedKey.dataset.note) {
+            playTone(key.dataset.note);
+          } else {
+            stopTone();
+          }
+        });
       });
-      document.querySelector(".keys").addEventListener("pointerleave", () => {
-        if (currentOscillator) {
-          currentOscillator.stop();
-          currentOscillator.disconnect();
-          currentOscillator = null;
-        }
+      document.querySelector(".keys").addEventListener("mouseleave", () => {
+        stopTone();
       });
       document.querySelector(".keys").addEventListener("pointerup", () => {
-        if (currentOscillator) {
-          currentOscillator.stop();
-          currentOscillator.disconnect();
-          currentOscillator = null;
-        }
+        stopTone();
       });
 
       document.querySelectorAll(".switch").forEach((el) => {
